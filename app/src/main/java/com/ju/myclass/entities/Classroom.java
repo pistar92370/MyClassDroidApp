@@ -11,6 +11,7 @@ import androidx.room.TypeConverters;
 
 import com.ju.myclass.dao.converters.StudentConverter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity(tableName = "classroom")
@@ -27,10 +28,17 @@ public class Classroom {
 //    private Bitmap picture;
 
     @TypeConverters(StudentConverter.class)
-    private List<Student> students;
+    private List<Student> students = new ArrayList<>();
 
+    // Constructor
     public Classroom(@NonNull String name) {this.name = name;}
 
+    // Methods
+    public void addStudent(@NonNull Student student) {
+        getStudents().add(student);
+    }
+
+    // Getters/setters
     public long getId() {
         return id;
     }
@@ -54,4 +62,5 @@ public class Classroom {
     public void setStudents(List<Student> students) {
         this.students = students;
     }
+
 }

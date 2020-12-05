@@ -13,11 +13,15 @@ import com.ju.myclass.dao.converters.ContactConverter;
 import com.ju.myclass.dao.converters.DateConverter;
 import com.ju.myclass.dao.converters.EventConverter;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Entity(tableName = "student")
 public class Student {
+
+    public static String SEX_MALE = "MALE";
+    public static String SEX_FEMALE = "FEMALE";
 
     @PrimaryKey
     @NonNull
@@ -33,11 +37,31 @@ public class Student {
     public long classroomId;
     // CONTACTS
     @TypeConverters(ContactConverter.class)
-    private List<Contact> contacts;
+    private List<Contact> contacts = new ArrayList<>();
     // EVENTS
     @TypeConverters(EventConverter.class)
-    private List<Event> events;
+    private List<Event> events = new ArrayList<>();
 
+    // Constructors
+    public Student() {
+    }
+
+    public Student(String firstName, String lastname, String sex) {
+        this.firstName = firstName;
+        this.lastname = lastname;
+        this.sex = sex;
+    }
+
+    // Methods
+    public void addContact(Contact contact) {
+        getContacts().add(contact);
+    }
+
+    public void addEvent(Event event) {
+        getEvents().add(event);
+    }
+
+    // Getters / Setters
     public long getId() {
         return id;
     }

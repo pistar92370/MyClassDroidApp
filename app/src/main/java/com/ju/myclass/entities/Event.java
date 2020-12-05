@@ -34,6 +34,19 @@ public class Event {
     private String comment;
     private Integer value;      // value that impact student's mark (-2, -1, +1, ...)
 
+    // Constructors
+
+
+    public Event() {
+    }
+
+    public Event(String type, String comment, Integer value) {
+        this.type = type;
+        this.comment = comment;
+        this.value = value;
+    }
+
+    //Getters/Setters
     public long getId() {
         return id;
     }
