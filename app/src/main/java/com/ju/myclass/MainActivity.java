@@ -10,13 +10,13 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.ju.myclass.adapters.WordListAdapter;
-import com.ju.myclass.entities.Word;
-import com.ju.myclass.view.model.WordViewModel;
+import com.ju.myclass.view.adapters.ClassroomListAdapter;
+import com.ju.myclass.entities.Classroom;
+import com.ju.myclass.view.model.ClassroomViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
-    private WordViewModel mWordViewModel;
+    private ClassroomViewModel mClassroomViewModel;
 
     public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
 
@@ -24,15 +24,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        RecyclerView recyclerView = findViewById(R.id.recyclerview);
-        final WordListAdapter adapter = new WordListAdapter(new WordListAdapter.WordDiff());
+        RecyclerView recyclerView = findViewById(R.id.recyclerviewClassroom);
+        final ClassroomListAdapter adapter = new ClassroomListAdapter(new ClassroomListAdapter.ClassroomDiff());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mWordViewModel = new ViewModelProvider(this).get(WordViewModel.class);
+        mClassroomViewModel = new ViewModelProvider(this).get(ClassroomViewModel.class);
 
-        mWordViewModel.getAllWords().observe(this, words -> {
+        mClassroomViewModel.getAllClassrooms().observe(this, classrooms -> {
             // Update the cached copy of the words in the adapter.
-            adapter.submitList(words);
+            adapter.submitList(classrooms);
         });
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -46,14 +46,14 @@ public class MainActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            Word word = new Word(data.getStringExtra(NewWordActivity.EXTRA_REPLY));
-            mWordViewModel.insert(word);
-        } else {
-            Toast.makeText(
-                    getApplicationContext(),
-                    R.string.empty_not_saved,
-                    Toast.LENGTH_LONG).show();
-        }
+//        if (requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+//            Classroom word = new Classroom(data.getStringExtra(NewClassroomActivity.EXTRA_REPLY));
+//            mClassroomViewModel.insert(word);
+//        } else {
+//            Toast.makeText(
+//                    getApplicationContext(),
+//                    R.string.empty_not_saved,
+//                    Toast.LENGTH_LONG).show();
+//        }
     }
 }

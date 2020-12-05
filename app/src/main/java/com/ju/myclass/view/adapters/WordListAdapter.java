@@ -1,4 +1,4 @@
-package com.ju.myclass.adapters;
+package com.ju.myclass.view.adapters;
 
 import android.view.ViewGroup;
 

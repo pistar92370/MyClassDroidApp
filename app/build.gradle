@@ -51,6 +51,9 @@ dependencies {
     //kapt "androidx.lifecycle:lifecycle-common-java8:$rootProject.lifecycleVersion"
     implementation "androidx.fragment:fragment-ktx:1.2.4"
 
+    // GSON
+    implementation 'com.google.code.gson:gson:2.8.5'
+
     // UI
     implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
     implementation "com.google.android.material:material:$rootProject.materialVersion"
