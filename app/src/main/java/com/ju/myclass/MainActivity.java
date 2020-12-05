@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ClassroomViewModel mClassroomViewModel;
 
-    public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
+    public static final int NEW_CLASSROOM_ACTIVITY_REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +37,8 @@ public class MainActivity extends AppCompatActivity {
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener( view -> {
-            Intent intent = new Intent(MainActivity.this, NewWordActivity.class);
-            startActivityForResult(intent, NEW_WORD_ACTIVITY_REQUEST_CODE);
+            Intent intent = new Intent(MainActivity.this, NewClassroomActivity.class);
+            startActivityForResult(intent, NEW_CLASSROOM_ACTIVITY_REQUEST_CODE);
         });
 
     }
@@ -46,14 +46,14 @@ public class MainActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-//        if (requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-//            Classroom word = new Classroom(data.getStringExtra(NewClassroomActivity.EXTRA_REPLY));
-//            mClassroomViewModel.insert(word);
-//        } else {
-//            Toast.makeText(
-//                    getApplicationContext(),
-//                    R.string.empty_not_saved,
-//                    Toast.LENGTH_LONG).show();
-//        }
+        if (requestCode == NEW_CLASSROOM_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+            Classroom word = new Classroom(data.getStringExtra(NewClassroomActivity.EXTRA_REPLY_CLASSNAME));
+            mClassroomViewModel.insert(word);
+        } else {
+            Toast.makeText(
+                    getApplicationContext(),
+                    R.string.empty_not_saved,
+                    Toast.LENGTH_LONG).show();
+        }
     }
 }
