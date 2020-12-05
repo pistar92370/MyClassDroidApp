@@ -9,11 +9,12 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.ju.myclass.entities.Classroom;
-import com.ju.myclass.entities.Contact;
 import com.ju.myclass.entities.Event;
 import com.ju.myclass.entities.Student;
 import com.ju.myclass.entities.Word;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -23,7 +24,7 @@ import java.util.concurrent.Executors;
  * so you can check the current schema into your version control system.
  * TO CHECK
  */
-@Database(entities = {Classroom.class, Student.class, Contact.class, Event.class}, version = 1, exportSchema = false)
+@Database(entities = {Classroom.class, Student.class, Event.class}, version = 1, exportSchema = false)
 public abstract class MyClassRoomDatabase extends RoomDatabase {
 
     public abstract ClassroomDao classroomDao();
@@ -31,7 +32,7 @@ public abstract class MyClassRoomDatabase extends RoomDatabase {
     public abstract EventDao eventDao();
 
     private static volatile MyClassRoomDatabase INSTANCE;
-    private static final int NUMBER_OF_THREADS = 4;
+    private static final int NUMBER_OF_THREADS = 1;
     public static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
@@ -53,49 +54,6 @@ public abstract class MyClassRoomDatabase extends RoomDatabase {
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
 
-            // If you want to keep data through app restarts,
-            // comment out the following block
-            databaseWriteExecutor.execute(() -> {
-                // Populate the database in the background.
-                // If you want to start with more words, just add them.
-                ClassroomDao classroomDao = INSTANCE.classroomDao();
-                StudentDao studentDao = INSTANCE.studentDao();
-                EventDao eventDao = INSTANCE.eventDao();
-                classroomDao.deleteAll();
-                studentDao.deleteAll();
-                eventDao.deleteAll();
-
-                Classroom classroom = new Classroom("5eme2");
-                Student student1 = new Student("Roger", "Moore", Student.SEX_MALE);
-                Contact contact1 = new Contact("Daron", "0678475983");
-                Event event1 = new Event(Event.UNLIKE, "Bavardages", -1);
-
-                student1.addContact(contact1);
-                student1.addEvent(event1);
-                classroom.addStudent(student1);
-
-                classroomDao.insert(classroom);
-
-                //////////////////////
-                Classroom classroom2 = new Classroom("5eme3");
-                Student student2 = new Student("Sarah", "Vittoz", Student.SEX_FEMALE);
-                Contact contact2 = new Contact("Daron", "0699999988");
-                Event event2 = new Event(Event.UNLIKE, "Saradote", -1);
-
-                student2.addContact(contact2);
-                student2.addEvent(event2);
-                classroom.addStudent(student2);
-
-                classroomDao.insert(classroom2);
-
-                System.out.println(classroomDao.getClassrooms());
-                System.out.println("Finishing populating DB");
-            });
-        }
-        @Override
-        public void onOpen(@NonNull SupportSQLiteDatabase db) {
-            super.onCreate(db);
-            System.out.println("DATABASE OPENING");
 //            // If you want to keep data through app restarts,
 //            // comment out the following block
 //            databaseWriteExecutor.execute(() -> {
@@ -104,24 +62,65 @@ public abstract class MyClassRoomDatabase extends RoomDatabase {
 //                ClassroomDao classroomDao = INSTANCE.classroomDao();
 //                StudentDao studentDao = INSTANCE.studentDao();
 //                EventDao eventDao = INSTANCE.eventDao();
-//                classroomDao.deleteAll();
-//                studentDao.deleteAll();
-//                eventDao.deleteAll();
+//
+////                classroomDao.deleteAll();
+////                studentDao.deleteAll();
+////                eventDao.deleteAll();
 //
 //                Classroom classroom = new Classroom("5eme2");
-//                Student student1 = new Student("Roger", "Moore", Student.SEX_MALE);
-//                Contact contact1 = new Contact("Daron", "0678475983");
-//                Event event1 = new Event(Event.UNLIKE, "Bavardages", -1);
+//                Classroom classroom2 = new Classroom("5eme3");
+//                Student student1 = new Student("Roger", "Moore", Student.SEX_MALE, 0);
+//                Student student2 = new Student("Sarah", "Vittoz", Student.SEX_FEMALE, 1);
 //
-//                student1.addContact(contact1);
-//                student1.addEvent(event1);
-//                classroom.addStudent(student1);
+//                Event event1 = new Event(Event.UNLIKE, "Bavardages", -1, 0);
+//                Event event2 = new Event(Event.LIKE, "Saradoooote", 1, 1);
 //
 //                classroomDao.insert(classroom);
+//                studentDao.insert(student1);
+//                eventDao.insert(event1);
+//                classroomDao.insert(classroom2);
+//                studentDao.insert(student2);
+//                eventDao.insert(event2);
 //
 //                System.out.println(classroomDao.getClassrooms());
 //                System.out.println("Finishing populating DB");
 //            });
+            System.out.println("DATABASE CREATED");
+        }
+        @Override
+        public void onOpen(@NonNull SupportSQLiteDatabase db) {
+            super.onOpen(db);
+            System.out.println("DATABASE OPENING");
+            // If you want to keep data through app restarts,
+            // comment out the following block
+            databaseWriteExecutor.execute(() -> {
+                // Populate the database in the background.
+                // If you want to start with more words, just add them.
+                ClassroomDao classroomDao = INSTANCE.classroomDao();
+                StudentDao studentDao = INSTANCE.studentDao();
+                EventDao eventDao = INSTANCE.eventDao();
+
+//                classroomDao.deleteAll();
+//                studentDao.deleteAll();
+//                eventDao.deleteAll();
+
+                List<Classroom> classrooms = new ArrayList<>();
+                List<Student> students = new ArrayList<>();
+                List<Event> events = new ArrayList<>();
+                for (int i = 0; i < 10; i++) {
+                    classrooms.add(new Classroom("5eme" + i));
+                    students.add(new Student("Roger" + i, "Moore", Student.SEX_MALE, 0));
+                    events.add(new Event(Event.UNLIKE, "Bavardages" + i, -1, 0));
+                }
+
+                System.out.println(classroomDao.insertAll(classrooms));
+                System.out.println(studentDao.insertAll(students));
+                System.out.println(eventDao.insertAll(events));
+
+
+                //System.out.println(classroomDao.getClassrooms().getValue().size());
+                System.out.println("Finishing populating DB");
+            });
         }
     };
 }

@@ -9,8 +9,7 @@ import com.ju.myclass.entities.Student;
 import java.util.List;
 
 public class ClassroomWithStudents {
-    @Embedded
-    public Classroom classroom;
+    @Embedded public Classroom classroom;
     @Relation(
             parentColumn = "id",
             entityColumn = "classroomId"

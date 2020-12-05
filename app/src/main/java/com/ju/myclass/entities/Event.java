@@ -5,7 +5,6 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
-import com.ju.myclass.dao.converters.ContactConverter;
 import com.ju.myclass.dao.converters.DateConverter;
 
 import java.util.Date;
@@ -21,7 +20,7 @@ public class Event {
     public static final String LIKE = "LIKE";
     public static final String UNLIKE = "UNLIKE";
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NonNull
     private long id;
 
@@ -40,10 +39,11 @@ public class Event {
     public Event() {
     }
 
-    public Event(String type, String comment, Integer value) {
+    public Event(String type, String comment, Integer value, long studentId) {
         this.type = type;
         this.comment = comment;
         this.value = value;
+        this.studentId = studentId;
     }
 
     //Getters/Setters

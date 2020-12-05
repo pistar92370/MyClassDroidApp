@@ -17,7 +17,7 @@ import java.util.List;
 @Entity(tableName = "classroom")
 public class Classroom {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NonNull
     private long id;
 
@@ -27,16 +27,10 @@ public class Classroom {
 //    @Ignore // Wont be persisted
 //    private Bitmap picture;
 
-    @TypeConverters(StudentConverter.class)
-    private List<Student> students = new ArrayList<>();
-
     // Constructor
     public Classroom(@NonNull String name) {this.name = name;}
 
     // Methods
-    public void addStudent(@NonNull Student student) {
-        getStudents().add(student);
-    }
 
     // Getters/setters
     public long getId() {
@@ -53,14 +47,6 @@ public class Classroom {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(List<Student> students) {
-        this.students = students;
     }
 
 }

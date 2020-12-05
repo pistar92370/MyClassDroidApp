@@ -9,6 +9,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.ju.myclass.entities.Event;
+import com.ju.myclass.entities.Student;
 
 import java.util.List;
 
@@ -17,6 +18,9 @@ public interface EventDao {
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Event event);
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    List<Long> insertAll(List<Event> events);
 
     @Update
     void update(Event event);

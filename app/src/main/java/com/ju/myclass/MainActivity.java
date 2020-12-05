@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         mClassroomViewModel = new ViewModelProvider(this).get(ClassroomViewModel.class);
 
         mClassroomViewModel.getAllClassrooms().observe(this, classrooms -> {
-            // Update the cached copy of the words in the adapter.
+            // Update the cached copy of the classrooms in the adapter.
             adapter.submitList(classrooms);
         });
 

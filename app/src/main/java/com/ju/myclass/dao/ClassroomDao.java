@@ -10,6 +10,7 @@ import androidx.room.Transaction;
 import androidx.room.Update;
 
 import com.ju.myclass.entities.Classroom;
+import com.ju.myclass.entities.Student;
 import com.ju.myclass.entities.Word;
 import com.ju.myclass.entities.relations.ClassroomWithStudents;
 
@@ -20,8 +21,11 @@ public interface ClassroomDao {
 
     // allowing the insert of the same word multiple times by passing a
     // conflict resolution strategy
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(Classroom classroom);
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    List<Long> insertAll(List<Classroom> classrooms);
 
     @Update
     void update(Classroom classroom);
@@ -35,4 +39,8 @@ public interface ClassroomDao {
     @Transaction
     @Query("SELECT * FROM classroom ORDER BY  name ASC")
     LiveData<List<Classroom>> getClassrooms();
+
+    @Transaction
+    @Query("SELECT * FROM classroom ORDER BY  name ASC")
+    LiveData<List<ClassroomWithStudents>> getClassroomsWithStudents();
 }

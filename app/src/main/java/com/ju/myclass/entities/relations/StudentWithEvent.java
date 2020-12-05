@@ -9,8 +9,7 @@ import com.ju.myclass.entities.Student;
 import java.util.List;
 
 public class StudentWithEvent {
-    @Embedded
-    public Student student;
+    @Embedded public Student student;
     @Relation(
             parentColumn = "id",
             entityColumn = "studentId"

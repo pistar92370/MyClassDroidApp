@@ -1,31 +1,30 @@
 package com.ju.myclass.entities;
 
-import android.graphics.Bitmap;
-
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
-import com.ju.myclass.dao.converters.ContactConverter;
 import com.ju.myclass.dao.converters.DateConverter;
-import com.ju.myclass.dao.converters.EventConverter;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Entity(tableName = "student")
 public class Student {
 
-    public static String SEX_MALE = "MALE";
-    public static String SEX_FEMALE = "FEMALE";
+    @Embedded public final static String SEX_MALE = "MALE";
+    @Embedded public final static String SEX_FEMALE = "FEMALE";
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NonNull
     private long id;
+
+    // FOREIGN IDs
+    public long classroomId;
+
     // INFO
     private String firstName;
     private String lastname;
@@ -33,33 +32,24 @@ public class Student {
     private Date birthDate;
     private String sex;
     private String description;
-    // CLASSROOM
-    public long classroomId;
-    // CONTACTS
-    @TypeConverters(ContactConverter.class)
-    private List<Contact> contacts = new ArrayList<>();
-    // EVENTS
-    @TypeConverters(EventConverter.class)
-    private List<Event> events = new ArrayList<>();
+    private String contactName1;
+    private String contactName2;
+    private String contactPhoneNumber1;
+    private String contactPhoneNumber2;
 
     // Constructors
     public Student() {
     }
 
-    public Student(String firstName, String lastname, String sex) {
+    public Student(String firstName, String lastname, String sex, long classroomId) {
         this.firstName = firstName;
         this.lastname = lastname;
         this.sex = sex;
+        this.classroomId = classroomId;
     }
 
     // Methods
-    public void addContact(Contact contact) {
-        getContacts().add(contact);
-    }
 
-    public void addEvent(Event event) {
-        getEvents().add(event);
-    }
 
     // Getters / Setters
     public long getId() {
@@ -118,19 +108,35 @@ public class Student {
         this.classroomId = classroomId;
     }
 
-    public List<Contact> getContacts() {
-        return contacts;
+    public String getContactName1() {
+        return contactName1;
     }
 
-    public void setContacts(List<Contact> contacts) {
-        this.contacts = contacts;
+    public void setContactName1(String contactName1) {
+        this.contactName1 = contactName1;
     }
 
-    public List<Event> getEvents() {
-        return events;
+    public String getContactName2() {
+        return contactName2;
     }
 
-    public void setEvents(List<Event> events) {
-        this.events = events;
+    public void setContactName2(String contactName2) {
+        this.contactName2 = contactName2;
+    }
+
+    public String getContactPhoneNumber1() {
+        return contactPhoneNumber1;
+    }
+
+    public void setContactPhoneNumber1(String contactPhoneNumber1) {
+        this.contactPhoneNumber1 = contactPhoneNumber1;
+    }
+
+    public String getContactPhoneNumber2() {
+        return contactPhoneNumber2;
+    }
+
+    public void setContactPhoneNumber2(String contactPhoneNumber2) {
+        this.contactPhoneNumber2 = contactPhoneNumber2;
     }
 }

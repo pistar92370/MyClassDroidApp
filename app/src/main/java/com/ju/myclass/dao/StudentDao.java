@@ -15,8 +15,11 @@ import java.util.List;
 @Dao
 public interface StudentDao {
     
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(Student student);
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    List<Long> insertAll(List<Student> students);
 
     @Update
     void update(Student student);
@@ -29,4 +32,5 @@ public interface StudentDao {
 
     @Query("SELECT * FROM student ORDER BY lastname ASC")
     LiveData<List<Student>> getStudents();
+
 }
