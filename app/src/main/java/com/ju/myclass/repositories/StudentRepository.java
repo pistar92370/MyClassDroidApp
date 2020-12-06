@@ -28,7 +28,11 @@ public class StudentRepository {
     // Room executes all queries on a separate thread.
     // Observed LiveData will notify the observer when the data has changed.
     public LiveData<List<Student>> getAllStudents() {
-        return mAllStudent;
+        return mStudentDao.getStudents();
+    }
+
+    public LiveData<List<Student>> getStudentsByClassId(long id) {
+        return mStudentDao.getStudentsByClassroomId(id);
     }
 
     // You must call this on a non-UI thread or your app will throw an exception. Room ensures

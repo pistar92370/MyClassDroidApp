@@ -9,11 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyClass">
-        <activity android:name=".NewWordActivity"></activity>
-        <activity android:name=".NewClassroomActivity"></activity>
+        <activity android:name=".NewStudentActivity"/>
+        <activity android:name=".ClassroomActivity" />
+        <activity android:name=".NewWordActivity" />
+        <activity android:name=".NewClassroomActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class NewClassroomActivity extends AppCompatActivity {
 
-    public static final String EXTRA_REPLY_CLASSNAME = "NewClassroomActivity.REPLY_CLASSNAME";
+    public static final String EXTRA_REPLY_CLASSNAME = "com.ju.myclass.NewClassroomActivity.REPLY_CLASSNAME";
 
     private EditText mEditClassNameView;
 

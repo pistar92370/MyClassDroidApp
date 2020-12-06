@@ -53,38 +53,6 @@ public abstract class MyClassRoomDatabase extends RoomDatabase {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
-
-//            // If you want to keep data through app restarts,
-//            // comment out the following block
-//            databaseWriteExecutor.execute(() -> {
-//                // Populate the database in the background.
-//                // If you want to start with more words, just add them.
-//                ClassroomDao classroomDao = INSTANCE.classroomDao();
-//                StudentDao studentDao = INSTANCE.studentDao();
-//                EventDao eventDao = INSTANCE.eventDao();
-//
-////                classroomDao.deleteAll();
-////                studentDao.deleteAll();
-////                eventDao.deleteAll();
-//
-//                Classroom classroom = new Classroom("5eme2");
-//                Classroom classroom2 = new Classroom("5eme3");
-//                Student student1 = new Student("Roger", "Moore", Student.SEX_MALE, 0);
-//                Student student2 = new Student("Sarah", "Vittoz", Student.SEX_FEMALE, 1);
-//
-//                Event event1 = new Event(Event.UNLIKE, "Bavardages", -1, 0);
-//                Event event2 = new Event(Event.LIKE, "Saradoooote", 1, 1);
-//
-//                classroomDao.insert(classroom);
-//                studentDao.insert(student1);
-//                eventDao.insert(event1);
-//                classroomDao.insert(classroom2);
-//                studentDao.insert(student2);
-//                eventDao.insert(event2);
-//
-//                System.out.println(classroomDao.getClassrooms());
-//                System.out.println("Finishing populating DB");
-//            });
             System.out.println("DATABASE CREATED");
         }
         @Override
@@ -100,17 +68,22 @@ public abstract class MyClassRoomDatabase extends RoomDatabase {
                 StudentDao studentDao = INSTANCE.studentDao();
                 EventDao eventDao = INSTANCE.eventDao();
 
-//                classroomDao.deleteAll();
-//                studentDao.deleteAll();
-//                eventDao.deleteAll();
+                classroomDao.deleteAll();
+                studentDao.deleteAll();
+                eventDao.deleteAll();
 
                 List<Classroom> classrooms = new ArrayList<>();
                 List<Student> students = new ArrayList<>();
                 List<Event> events = new ArrayList<>();
                 for (int i = 0; i < 10; i++) {
-                    classrooms.add(new Classroom("5eme" + i));
-                    students.add(new Student("Roger" + i, "Moore", Student.SEX_MALE, 0));
-                    events.add(new Event(Event.UNLIKE, "Bavardages" + i, -1, 0));
+                    Classroom classroom = new Classroom("5eme" + i);
+                    classrooms.add(classroom);
+                    for (int j = 0 ; j < 25; j++) {
+                        students.add(new Student("Roger" + j, "Moore - class " + i, Student.SEX_MALE, i));
+                        for (int k = 0 ; k < 10; k++) {
+                            events.add(new Event(Event.UNLIKE, "Bavardages student " + j + k, -1, j));
+                        }
+                    }
                 }
 
                 System.out.println(classroomDao.insertAll(classrooms));

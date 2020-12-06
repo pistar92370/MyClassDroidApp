@@ -1,10 +1,20 @@
 <resources>
     <!-- APP -->
     <string name="app_name">MyClass</string>
+    <string name="empty_not_saved">Nothing saved because it is empty.</string>
+    <string name="successfully_saved">Successfully saved.</string>
 
     <!-- WORD -->
     <string name="hint_word">Word...</string>
     <string name="button_save">Save</string>
     <string name="add_word">Add</string>
-    <string name="empty_not_saved">Word not saved because it is empty.</string>
+
+    <!-- CLASSROOM -->
+    <string name="create_classroom">Give your new class a name:</string>
+    <string name="hint_classroom_name_edit">Classroom Name...</string>
+
+    <!-- NEW STUDENT FORM-->
+    <string name="create_student">Create a new student:</string>
+    <string name="hint_first_name_edit">First Name...</string>
+    <string name="hint_last_name_edit">Last Name...</string>
 </resources>

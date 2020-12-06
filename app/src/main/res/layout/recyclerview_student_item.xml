@@ -8,11 +8,11 @@
         android:id="@+id/icon"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/ic_baseline_group_work_24" />
+        android:src="@drawable/ic_baseline_emoji_people_24" />
 
     <TextView
-        android:id="@+id/classroom_name_textView"
-        style="@style/classroom_title"
+        android:id="@+id/student_label_textView"
+        style="@style/student_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/background_light" />

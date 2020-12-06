@@ -22,7 +22,12 @@ public class StudentViewModel extends AndroidViewModel {
         mAllStudent = mStudentRepository.getAllStudents();
     }
 
-    public LiveData<List<Student>> getAllStudents() { return mAllStudent; }
+    public LiveData<List<Student>> getAllStudents() {
+        return mStudentRepository.getAllStudents();
+    }
+
+    public LiveData<List<Student>> getStudentsByClassId(long id) {
+        return mStudentRepository.getStudentsByClassId(id); }
 
     public void insert(Student student) { mStudentRepository.insert(student); }
 }

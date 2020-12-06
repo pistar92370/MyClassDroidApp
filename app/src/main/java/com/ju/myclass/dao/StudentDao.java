@@ -33,4 +33,7 @@ public interface StudentDao {
     @Query("SELECT * FROM student ORDER BY lastname ASC")
     LiveData<List<Student>> getStudents();
 
+    @Query("SELECT * FROM student WHERE classroomId = :id ORDER BY lastname ASC")
+    LiveData<List<Student>> getStudentsByClassroomId(long id);
+
 }
