@@ -17,4 +17,6 @@
     <string name="create_student">Create a new student:</string>
     <string name="hint_first_name_edit">First Name...</string>
     <string name="hint_last_name_edit">Last Name...</string>
+    <string name="hint_birthday_edit">30/04/1985...</string>
+    <string name="hint_contact_edit">06 06 81 82 52...</string>
 </resources>
