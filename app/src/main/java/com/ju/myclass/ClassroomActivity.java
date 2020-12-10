@@ -14,6 +14,8 @@ import com.ju.myclass.entities.Student;
 import com.ju.myclass.view.adapters.StudentListAdapter;
 import com.ju.myclass.view.model.StudentViewModel;
 
+import java.util.Date;
+
 public class ClassroomActivity extends AppCompatActivity {
 
     private StudentViewModel mStudentViewModel;
@@ -53,9 +55,12 @@ public class ClassroomActivity extends AppCompatActivity {
         if (requestCode == NEW_CLASSROOM_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             String firstName = data.getStringExtra(NewStudentActivity.EXTRA_REPLY_FIRST_NAME);
             String lastName = data.getStringExtra(NewStudentActivity.EXTRA_REPLY_LAST_NAME);
-            String sex = "MALE";
+            String sex = data.getStringExtra(NewStudentActivity.EXTRA_REPLY_SEX);
+            long birthDateTs = data.getLongExtra(NewStudentActivity.EXTRA_REPLY_BIRTH_DATE, 0);
             long classroomId = data.getLongExtra(NewStudentActivity.EXTRA_REPLY_CLASSROOM_ID, -1);
-            Student student = new Student(firstName, lastName, sex, classroomId);
+            String contactNbr1 = data.getStringExtra(NewStudentActivity.EXTRA_REPLY_CONTACT_NBR_1);
+            String contactNbr2 = data.getStringExtra(NewStudentActivity.EXTRA_REPLY_CONTACT_NBR_2);
+            Student student = new Student(classroomId, firstName, lastName, sex, new Date(birthDateTs), contactNbr1, contactNbr2);
             mStudentViewModel.insert(student);
             Toast.makeText(
                     getApplicationContext(),

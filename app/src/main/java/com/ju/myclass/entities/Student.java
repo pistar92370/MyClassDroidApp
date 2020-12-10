@@ -41,11 +41,33 @@ public class Student {
     public Student() {
     }
 
-    public Student(String firstName, String lastname, String sex, long classroomId) {
+    public Student(long classroomId,
+                   String firstName,
+                   String lastname,
+                   String sex) {
+        this.classroomId = classroomId;
         this.firstName = firstName;
         this.lastname = lastname;
         this.sex = sex;
+        this.birthDate = birthDate;
+        this.contactPhoneNumber1 = contactPhoneNumber1;
+        this.contactPhoneNumber2 = contactPhoneNumber2;
+    }
+
+    public Student(long classroomId,
+                   String firstName,
+                   String lastname,
+                   String sex,
+                   Date birthDate,
+                   String contactPhoneNumber1,
+                   String contactPhoneNumber2) {
         this.classroomId = classroomId;
+        this.firstName = firstName;
+        this.lastname = lastname;
+        this.sex = sex;
+        this.birthDate = birthDate;
+        this.contactPhoneNumber1 = contactPhoneNumber1;
+        this.contactPhoneNumber2 = contactPhoneNumber2;
     }
 
     // Methods

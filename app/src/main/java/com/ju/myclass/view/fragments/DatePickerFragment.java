@@ -4,16 +4,26 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.widget.DatePicker;
+import android.widget.EditText;
 
 import androidx.fragment.app.DialogFragment;
 
+import com.ju.myclass.NewStudentActivity;
+
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.Locale;
 
 public class DatePickerFragment extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
 
-    private Date date;
+    private NewStudentActivity newStudentActivity;
+    private EditText mEditStudentViewBirthDate;
+
+    public DatePickerFragment(NewStudentActivity newStudentActivity, EditText mEditStudentViewBirthDate) {
+        this.newStudentActivity = newStudentActivity;
+        this.mEditStudentViewBirthDate = mEditStudentViewBirthDate;
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -29,15 +39,10 @@ public class DatePickerFragment extends DialogFragment
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
         final Calendar c = Calendar.getInstance();
-        c.set(year, month, day);
-        date = c.getTime();
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
+        c.set(year, month, day, 0, 0, 0);
+        String myFormat = "dd/MM/yyyy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.FRANCE);
+        mEditStudentViewBirthDate.setText(sdf.format(c.getTime()));
+        newStudentActivity.setBirthDate(c.getTime());
     }
 }

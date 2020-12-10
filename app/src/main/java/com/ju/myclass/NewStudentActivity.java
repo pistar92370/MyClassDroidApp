@@ -13,22 +13,32 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.ju.myclass.entities.Student;
 import com.ju.myclass.view.fragments.DatePickerFragment;
+
+import java.util.Date;
 
 public class NewStudentActivity extends AppCompatActivity {
 
+    public static final String EXTRA_REPLY_CLASSROOM_ID = "com.ju.myclass.NewClassroomActivity.REPLY_CLASSROOM_ID";
     public static final String EXTRA_REPLY_FIRST_NAME = "com.ju.myclass.NewClassroomActivity.REPLY_FIRST_NAME";
     public static final String EXTRA_REPLY_LAST_NAME = "com.ju.myclass.NewClassroomActivity.REPLY_LAST_NAME";
     public static final String EXTRA_REPLY_SEX = "com.ju.myclass.NewClassroomActivity.REPLY_SEX";
-    public static final String EXTRA_REPLY_CLASSROOM_ID = "com.ju.myclass.NewClassroomActivity.REPLY_CLASSROOM_ID";
-    private String[] array_sex = { "Male", "Female"};
+    public static final String EXTRA_REPLY_BIRTH_DATE = "com.ju.myclass.NewClassroomActivity.REPLY_BIRTH_DATE";
+    public static final String EXTRA_REPLY_CONTACT_NBR_1 = "com.ju.myclass.NewClassroomActivity.REPLY_CONTACT_NBR_1";
+    public static final String EXTRA_REPLY_CONTACT_NBR_2 = "com.ju.myclass.NewClassroomActivity.REPLY_CONTACT_NBR_2";
+    private String[] array_sex = {Student.SEX_FEMALE, Student.SEX_MALE};
 
     private long classroomId;
     private EditText mEditStudentViewFirstName;
     private EditText mEditStudentViewLastName;
     private Spinner mEditStudentSpinnerSex;
     private String sex = "NONE";
-//    private EditText mEditStudentViewClassroomId;
+    private EditText mEditStudentViewBirthDate;
+    private Date birthDate;
+    private EditText mEditStudentViewContactNbr1;
+    private EditText mEditStudentViewContactNbr2;
+    //    private EditText mEditStudentViewClassroomId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,6 +66,10 @@ public class NewStudentActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {}
         });
 
+        mEditStudentViewBirthDate = findViewById(R.id.edit_student_birthday);
+        mEditStudentViewContactNbr1 = findViewById(R.id.edit_student_contact_nbr_1);
+        mEditStudentViewContactNbr2 = findViewById(R.id.edit_student_contact_nbr_2);
+
         final Button button = findViewById(R.id.button_save_student);
         button.setOnClickListener(view -> {
             Intent replyIntent = new Intent();
@@ -64,11 +78,16 @@ public class NewStudentActivity extends AppCompatActivity {
             } else {
                 String firstName = mEditStudentViewFirstName.getText().toString();
                 String lastName = mEditStudentViewLastName.getText().toString();
+                String contactNbr1 = mEditStudentViewContactNbr1.getText().toString();
+                String contactNbr2 = mEditStudentViewContactNbr2.getText().toString();
 
                 replyIntent.putExtra(EXTRA_REPLY_FIRST_NAME, firstName);
                 replyIntent.putExtra(EXTRA_REPLY_LAST_NAME, lastName);
                 replyIntent.putExtra(EXTRA_REPLY_CLASSROOM_ID, classroomId);
                 replyIntent.putExtra(EXTRA_REPLY_SEX, sex);
+                replyIntent.putExtra(EXTRA_REPLY_BIRTH_DATE, birthDate.getTime());
+                replyIntent.putExtra(EXTRA_REPLY_CONTACT_NBR_1, contactNbr1);
+                replyIntent.putExtra(EXTRA_REPLY_CONTACT_NBR_2, contactNbr2);
 
                 setResult(RESULT_OK, replyIntent);
             }
@@ -77,7 +96,15 @@ public class NewStudentActivity extends AppCompatActivity {
     }
 
     public void showDatePickerDialog(View v) {
-        DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getSupportFragmentManager(), "datePicker");
+        DialogFragment datePickerFragment = new DatePickerFragment(this, mEditStudentViewBirthDate);
+        datePickerFragment.show(getSupportFragmentManager(), "datePicker");
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
     }
 }

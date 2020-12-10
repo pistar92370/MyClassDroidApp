@@ -79,7 +79,7 @@ public abstract class MyClassRoomDatabase extends RoomDatabase {
                     Classroom classroom = new Classroom("5eme" + i);
                     classrooms.add(classroom);
                     for (int j = 0 ; j < 25; j++) {
-                        students.add(new Student("Roger" + j, "Moore - class " + i, Student.SEX_MALE, i));
+                        students.add(new Student(i, "Roger" + j, "Moore - class " + i, Student.SEX_MALE));
                         for (int k = 0 ; k < 10; k++) {
                             events.add(new Event(Event.UNLIKE, "Bavardages student " + j + k, -1, j));
                         }
